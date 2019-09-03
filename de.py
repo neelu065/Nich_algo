@@ -1,7 +1,7 @@
 import numpy as np
 from mutation import *
 from selection import *
-def de(fobj, bounds, mut=0.6, crossp=0.7, popsize=20, its=100):
+def de(fobj, bounds, mut, crossp, popsize, its):
     dimensions = len(bounds)
     # Initilisation
     pop = np.random.rand(popsize, dimensions)
@@ -26,6 +26,7 @@ def de(fobj, bounds, mut=0.6, crossp=0.7, popsize=20, its=100):
                 trial_denorm = min_b + trial * diff                             # trail vector generator
                 f = fobj(trial_denorm)                                          # trail func evaluation
                 # Selection
+
                 if f < fitness[j]:
                     fitness[j] = f                                              # compare with previous generation
                     pop[j] = trial

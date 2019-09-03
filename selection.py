@@ -1,3 +1,3 @@
-def selection1():
-    
+def selection1(fobj , fg ,fh , f ):
+
     return
