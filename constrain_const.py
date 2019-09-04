@@ -1,6 +1,6 @@
 def constrain_const(n):
 
- # Func =[ Dimension(D) , parameter(p) , pop-size(Ng)]
+ # Func =[ Dimension(D) , parameter(p) ]
     F1 = [ 1 , 1 ]
     F2 = [ 2 , 1 ]
     F3 = [ 2 , 2 ]
@@ -20,8 +20,8 @@ def constrain_const(n):
     F17 =[  3, 1 ]
     F18 =[  5, 1 ]
 
-    benchmark_func=[F1,F2,F3,F4,F5,F6,F7,F8,F9,
-                    F10,F11,F12,F13,F14,F15,F16,
-                    F17,F18]
+    benchmark_func = [F1,F2,F3,F4,F5,F6,F7,F8,F9,
+                     F10,F11,F12,F13,F14,F15,F16,
+                     F17,F18]
 
     return benchmark_func[n-1]
