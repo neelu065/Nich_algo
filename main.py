@@ -2,16 +2,19 @@ from de import de
 from func import *
 from constrain_const import constrain_const
 
+# Inputs
+Fn           = 2                                                                # Function to be evaluated
+popsize      = 20
+mut          = 0.6
+crossp       = 0.7
+iter_max     = 100
+func_eval    = func1                                                            # func to be evaluated
+value        = constrain_const(Fn)                                              # func which decide the Dimension and parameter(p)
+D            = value[0]
+bounds       = [(-(D+1),(D+1)) for i in range(D)]                               # search space
 
-Fn = 1                                                                          # Function to be evaluated
-popsize = 20
-mut = 0.6
-crossp = 0.7
-iter_max = 100
+# Execution
 
-value = constrain_const(Fn)
-D = value[0]
-bounds = [(-(D+1),(D+1)) for i in range(D)]                                     # search space
+a   = de(func_eval, bounds, mut, crossp, popsize, iter_max, Fn)
 
-a, b = de(func1, bounds, mut, crossp, popsize, iter_max)
-print(a , b )
+print( a  )
