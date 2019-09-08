@@ -1,5 +1,6 @@
 import numpy as np
 from constrain import const_violation
+from selection import selection
 #from selection import *
 def de(fobj, bounds, mut, crossp, popsize, its, Fn):
     dimensions = len(bounds)
@@ -9,8 +10,8 @@ def de(fobj, bounds, mut, crossp, popsize, its, Fn):
     diff = np.fabs(min_b - max_b)                                               # fabs func to get floating positive difference
     pop_denorm = min_b + pop * diff                                             # denormalized
     fitness = np.asarray([fobj(ind) for ind in pop_denorm])                     # func value evaluation
-    best_idx = np.argmin(fitness)                                               # index with min func value
-    best = pop_denorm[best_idx]                                                 # corr func value
+    #best_idx = np.argmin(fitness)                                               # index with min func value
+    #best = pop_denorm[best_idx]                                                 # corr func value
     for i in range(its):
         for j in range(popsize):
             # Mutation
@@ -28,12 +29,7 @@ def de(fobj, bounds, mut, crossp, popsize, its, Fn):
             phi_b = const_violation(trial_denorm  , Fn )
             phi_a = const_violation(pop_denorm[j] , Fn )
             # Selection
+            fitness[j] , pop[j] = selection(phi_a , phi_b , f , fitness[j] , pop[j] , trial)
 
-            if f < fitness[j]:
-                fitness[j] = f                                              # compare with previous generation
-                pop[j] = trial
-                if f < fitness[best_idx]:                                   # check for best vector
-                    best_idx = j                                            # compare with previous index
-                    best = trial_denorm
     #return best, fitness[best_idx]                                              # retun best vector and its func value
-    return phi_a
+    return pop
