@@ -28,8 +28,10 @@ def de(fobj, bounds, mut, crossp, popsize, its, Fn):
             f = fobj(trial_denorm)                                              # trail func evaluation
 
             # Constrain_implementation
-            phi_b = const_violation(trial_denorm  , Fn )
-            phi_a = const_violation(pop_denorm[j] , Fn )
+            # phi_b = const_violation(trial_denorm  , Fn )
+            # phi_a = const_violation(pop_denorm[j] , Fn )
+            phi_a = 0
+            phi_b = 0
 
             # Selection
             fitness[j] , pop[j] = selection(phi_a , phi_b , f , fitness[j] , pop[j] , trial)
