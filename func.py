@@ -8,5 +8,5 @@ def func2(x):
     return -np.sin( 5 * np.pi * x ) + 1
 
 def func3(x):
-    # 
+    # Himmelblau function
     return ( x[0]**2 + x[1] - 11 )**2 + ( x[0] + x[1]**2 - 7 )**2 + 1

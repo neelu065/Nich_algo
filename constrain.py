@@ -3,7 +3,9 @@ import numpy as np
 
 
 def const_violation(a , Fn):
-    D, P = constrain_const(Fn)
+
+    D, P = constrain_const(Fn)                                                  # P = number of constraint
+                                                                                # D = Dimension of the function
     for p in np.arange(P):
         ap = 0
         for d in np.arange(D):
@@ -12,5 +14,6 @@ def const_violation(a , Fn):
             ap = sum([(Cp * a[d]) ** 2])
         gp = D**2 - ap
         phi_indv = max(0,gp)
-        const_viol = sum([phi_indv])
+        const_viol = sum([phi_indv])                                            # constraint violation
+
     return const_viol
