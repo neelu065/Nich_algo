@@ -16,8 +16,13 @@ def de(fobj, bounds, mut, crossp, popsize, its, Fn):
 
             # Mutation
             idxs = [idx for idx in range(popsize) if idx != j]                  # check to make sure that own index is not selected
-            a, b, c = pop[np.random.choice(idxs, 3, replace=False)]             # random choice among popsize excluding current index
+            #a, b, c = pop[np.random.choice(idxs, 3, replace=False)]            # random choice among popsize excluding current index
+
+            a = pop[np.argmin((pop[j] - pop[i])**2 for i in idxs)]              # fNRAND1 updated
+            b, c = pop[np.random.choice(idxs, 2, replace=False)]
+
             mutant = np.clip(a + mut * (b - c), 0, 1)                           # just to make sure that value in limit(0,1)
+
 
             # Cross-over
             cross_points = np.random.rand(dimensions) < crossp                  # result in boolean values
@@ -28,11 +33,10 @@ def de(fobj, bounds, mut, crossp, popsize, its, Fn):
             f = fobj(trial_denorm)                                              # trail func evaluation
 
             # Constrain_implementation
-            # phi_b = const_violation(trial_denorm  , Fn )
-            # phi_a = const_violation(pop_denorm[j] , Fn )
-            phi_a = 0
-            phi_b = 0
-
+            phi_b = const_violation(trial_denorm  , Fn )
+            phi_a = const_violation(pop_denorm[j] , Fn )
+            # phi_a = 0
+            # phi_b = 0
             # Selection
             fitness[j] , pop[j] = selection(phi_a , phi_b , f , fitness[j] , pop[j] , trial)
 

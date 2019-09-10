@@ -1,6 +1,6 @@
 import numpy as np
 
-def selection(phi_a , phi_b , f , fitness , pop , trial):
+def selection(phi_a  , phi_b  , f , fitness , pop , trial):
     # domination criteria
     q1 = ( phi_a == 0 and phi_b == 0)
     q2 = f < fitness
