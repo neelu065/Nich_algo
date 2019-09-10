@@ -13,6 +13,6 @@ def selection(phi_a  , phi_b  , f , fitness , pop , trial):
 
     if ((q1 and q2) or (r1 and r2) or (s1 and s2)):
         fitness = f ; pop = trial                                               # phi_b corr to donor vector
-        return fitness , pop
-    else:
-        return fitness , pop
+
+    return fitness , pop
+    
