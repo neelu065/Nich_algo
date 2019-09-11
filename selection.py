@@ -1,6 +1,11 @@
-import numpy as np
+from constrain import const_violation
 
-def selection(phi_a  , phi_b  , f , fitness , pop , trial):
+
+def selection( f , fitness , target , trial,Fn):
+    phi_b = const_violation(trial  , Fn )
+    phi_a = const_violation(target , Fn )
+    # phi_a = 0
+    # phi_b = 0
     # domination criteria
     q1 = ( phi_a == 0 and phi_b == 0)
     q2 = f < fitness
@@ -12,7 +17,6 @@ def selection(phi_a  , phi_b  , f , fitness , pop , trial):
     s2 = phi_a > 0 and phi_b > 0                                                # phi_a corr to target vector
 
     if ((q1 and q2) or (r1 and r2) or (s1 and s2)):
-        fitness = f ; pop = trial                                               # phi_b corr to donor vector
-
-    return fitness , pop
+        fitness = f ; target = trial                                               # phi_b corr to donor vector
+    return fitness , target
     

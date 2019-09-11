@@ -1,32 +1,31 @@
+import time
 from de import de
 from func import *
 
 import matplotlib.pyplot as plt
 
 # Inputs
+
 Fn           = 2                                                                # Function to be evaluated
-popsize      = 1
+popsize      = 50
 mut          = 0.6
 crossp       = 0.7
-iter_max     = 100
+iter_max     = 1000
 func_eval    = func1                                                            # func to be evaluated
 
-#bounds = [(0 , 1)]
-
-
-
-
 # Execution
-
+start = time.time()
 a , b  = de(func_eval, mut, crossp, popsize, iter_max, Fn)
+end = time.time()
 
+print('Time taken to Execute this code = {} seconds'.format(end - start))
 
-min_b, max_b = np.asarray(bounds).T
-diff = np.fabs(min_b - max_b)                                               # fabs func to get floating positive difference
-pop_denorm = min_b + a * diff
-print( 'pop_denorm = {}'.format(pop_denorm) )
-print('function value = {}'.format(b))
+A = [a[i][0] for i in range(popsize)]
+B = [a[i][1] for i in range(popsize)]
 
-
-
-plt.plot(a)
+plt.figure(2)
+plt.title('Target vector after {} iteration'.format(iter_max))
+plt.xlabel('x')
+plt.ylabel('y')
+plt.plot(A , B , '^')
+plt.show(block = True)
