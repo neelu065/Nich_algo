@@ -1,5 +1,4 @@
 import numpy as np
-from constrain import const_violation
 from selection import selection
 from constrain_const import constrain_const
 import matplotlib.pyplot as plt
@@ -35,12 +34,7 @@ def de(fobj, mut, crossp, popsize, its, Fn):
             # Mutation
             idxs = [idx for idx in range(popsize) if idx != j]                 # check to make sure that own index is not selected
             
-            if (j != 0 or j != popsize-1):                                     # FINRAND1 Updated
-                a = target[np.argmin((target[j] - target[i])**2 for i in [j-1,j+1])]
-            else:
-                a = target[np.argmin((target[j] - target[i])**2 for i in idxs)]
-            
-            b, c = target[np.random.choice(idxs, 2, replace=False)]
+            a, b, c = target[np.random.choice(idxs, 3, replace=False)]
             mutant = a + mut * (b - c)                                          # just to make sure that value in limit(0,1)
 
 
@@ -48,15 +42,18 @@ def de(fobj, mut, crossp, popsize, its, Fn):
             cross_points = np.random.rand(dimensions) < crossp                  # result in boolean values
             if not np.any(cross_points):                                        # check for false value
                 cross_points[np.random.randint(0, dimensions)] = True           # Forcing atleast one index to become true.
-            trial = np.where(cross_points, mutant, target[j])                   # trail vector generator
+            trial = np.where(cross_points, mutant, target[j])                   # trial vector generator
                                           
-            f = fobj(trial)                                                      # trail func evaluation
-
+            f = fobj(trial)                                                     # trial func evaluation
+            
+            ind = np.argmin((trial - target[i])**2 for i in range(popsize))   
+           
+            x_n = target[ind]                                                   # closest position vector
+            print(x_n)
+            f_xn = fitness[ind]
             # Constrain_implementation
 
             # Selection
-            fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)
-
-
+            fitness[j] , target[j] = selection(f , f_xn , x_n , trial , Fn)    # domination check between trial vector and closest vector
 
     return target , fitness

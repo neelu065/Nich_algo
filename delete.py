@@ -1,6 +1,6 @@
 
 import numpy as np
-#D = 5
+D = 5
 #bounds = [(-(D+1),(D+1)) for i in range(D)]
 ## #print(bounds)
 ##
@@ -34,8 +34,9 @@ import numpy as np
 j =5
 D = 2
 target = np.random.uniform(-(D+1),(D+1),size = (20, 2))
-for i in j-1,j+1:
-    print(i)
-print(target[i])
-print(target[j])
-print((target[j]-target[i])**2)
+trial  = np.random.uniform(-(D+1),(D+1),size = (20, 2))
+
+
+diff = np.argmin((target[i]-trial[i])**2 for i in range(20))
+
+print(diff)

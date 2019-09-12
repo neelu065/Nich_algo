@@ -17,4 +17,4 @@ def func3(x):
 def func4(x):
     # F13 to F18
     # Modified version of Rastrigin function
-    return sum([10(1+cos(2*np.pi*kd*x[i])) + 2*kd*(x[i] - 1)**2 * H[x[i] -1] for i in range(len(x))])
+    return sum([10(1+np.cos(2*np.pi*kd*x[i])) + 2*kd*(x[i] - 1)**2 * H[x[i] -1] for i in range(len(x))])

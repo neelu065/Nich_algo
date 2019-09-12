@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 # Inputs
 
 Fn           = 2                                                               # Function to be evaluated
-popsize      = 50
-mut          = 0.8
+popsize      = 10
+mut          = 0.6
 crossp       = 0.7
-iter_max     = 1000
+iter_max     = 5000
 func_eval    = func1                                                           # func to be evaluated
 
 # Execution
