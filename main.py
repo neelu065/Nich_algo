@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 
 # Inputs
 
-Fn           = 2                                                                # Function to be evaluated
+Fn           = 2                                                               # Function to be evaluated
 popsize      = 50
-mut          = 0.6
+mut          = 0.8
 crossp       = 0.7
 iter_max     = 1000
-func_eval    = func1                                                            # func to be evaluated
+func_eval    = func1                                                           # func to be evaluated
 
 # Execution
 start = time.time()
@@ -27,5 +27,5 @@ plt.figure(2)
 plt.title('Target vector after {} iteration'.format(iter_max))
 plt.xlabel('x')
 plt.ylabel('y')
-plt.plot(A , B , '^')
+plt.plot(A , B , '*')
 plt.show(block = True)

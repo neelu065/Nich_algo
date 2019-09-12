@@ -1,11 +1,10 @@
 from constrain import const_violation
 
 
-def selection( f , fitness , target , trial,Fn):
+def selection( f , fitness , target , trial, Fn):
     phi_b = const_violation(trial  , Fn )
     phi_a = const_violation(target , Fn )
-    # phi_a = 0
-    # phi_b = 0
+   
     # domination criteria
     q1 = ( phi_a == 0 and phi_b == 0)
     q2 = f < fitness
