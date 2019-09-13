@@ -1,4 +1,4 @@
-
+import matplotlib.pyplot as plt
 import numpy as np
 D = 5
 #bounds = [(-(D+1),(D+1)) for i in range(D)]
@@ -31,12 +31,30 @@ D = 5
 #
 #print(a , b , c)
 #print(mutant)
-j =5
+
+# check for closest point
 D = 2
-target = np.random.uniform(-(D+1),(D+1),size = (20, 2))
-trial  = np.random.uniform(-(D+1),(D+1),size = (20, 2))
+popsize = 10
+target = np.random.uniform(-(D+1),(D+1),size = (popsize, D))
+trial  = [0 , 0  ]
+
+A = [target[i][0] for i in range(popsize)]
+B = [target[i][1] for i in range(popsize)]
+
+plt.figure(2)
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.plot(A , B , '*')
 
 
-diff = np.argmin((target[i]-trial[i])**2 for i in range(20))
-
-print(diff)
+ab = []
+for n in np.arange(popsize):
+    qw =  sum((trial[i] - target[n][i])**2  for i in range(D))
+    ab.append(qw)
+zx = np.argmin(ab)
+print(zx)
+print(target[zx])
+print(ab[zx])
+plt.plot(target[zx][0],target[zx][1],'ro')
+plt.plot(trial[0],trial[1],'m^')

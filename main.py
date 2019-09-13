@@ -1,16 +1,16 @@
 import time
 from de import de
-from func import *
-
+from func import func1
+from figure_plot import figure_plot
 import matplotlib.pyplot as plt
 
 # Inputs
 
 Fn           = 2                                                               # Function to be evaluated
-popsize      = 10
-mut          = 0.6
+popsize      = 20
+mut          = 0.8
 crossp       = 0.7
-iter_max     = 5000
+iter_max     = 1000
 func_eval    = func1                                                           # func to be evaluated
 
 # Execution
@@ -20,12 +20,6 @@ end = time.time()
 
 print('Time taken to Execute this code = {} seconds'.format(end - start))
 
-A = [a[i][0] for i in range(popsize)]
-B = [a[i][1] for i in range(popsize)]
-
-plt.figure(2)
-plt.title('Target vector after {} iteration'.format(iter_max))
-plt.xlabel('x')
-plt.ylabel('y')
-plt.plot(A , B , '*')
-plt.show(block = True)
+if len(a[0]) == 2:
+    plt.title('Target vector after {} iteration'.format(iter_max))             # plot for reference 
+    figure_plot(a , popsize )                                                  # comment if unnecessary

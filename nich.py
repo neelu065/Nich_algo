@@ -33,4 +33,14 @@ fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)
 
 # fCDE
 
- 
+ # process to find the closest target vector for this iteration trial vector
+all_sum = []
+for n in np.arange(popsize):
+    indv_sum =  sum((trial[i] - target[n][i])**2  for i in range(D))
+    all_sum.append(indv_sum)
+ind = np.argmin(all_sum)
+x_n = target[ind]
+f_xn = fitness[ind]
+
+#selection
+fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)
