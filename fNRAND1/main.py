@@ -15,7 +15,7 @@ func_eval    = func1                                                           #
 
 # Execution
 start = time.time()
-a , b , c = de(func_eval, mut, crossp, popsize, iter_max, Fn)
+a , b  = de(func_eval, mut, crossp, popsize, iter_max, Fn)
 end = time.time()
 
 print('Time taken to Execute this code = {} seconds'.format(end - start))
