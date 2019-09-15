@@ -47,4 +47,4 @@ def de(fobj, mut, crossp, popsize, its, Fn):
             # Selection                                                        # Constrain_implementation
             fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)    # domination check between trial vector and closest vector
 
-    return target , fitness, ind
+    return target , fitness
