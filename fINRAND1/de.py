@@ -8,12 +8,14 @@ def de(fobj, mut, crossp, popsize, its, Fn):
 
     value        = constrain_const(Fn)                                         # func which decide the Dimension and parameter(p)
     D            = value[0]
-    bounds       = [(-(D+1),(D+1)) for i in range(D)]                          # search space
+    D = 2
+    bounds       = [(-(5+1),(5+1)) for i in range(D)]                          # search space
+    
     print('bounds = {}'.format(bounds))
     
     # Initilisation
-    target = np.random.uniform(-(D+1),(D+1),size = (popsize, D))
-    
+    #target = np.random.uniform(-(D+1),(D+1),size = (popsize, D))
+    target = np.random.uniform(-(5+1),(5+1),size = (popsize, D))
     if len(target[0]) == 2:
         plt.title('Initial Uniformly Distributed target vector')
         figure_plot(target , popsize )
