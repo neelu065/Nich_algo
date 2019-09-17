@@ -8,19 +8,23 @@ def de(fobj, mut, crossp, popsize, its, Fn):
 
     value        = constrain_const(Fn)                                         # func which decide the Dimension and parameter(p)
     D            = value[0]
-    D = 2
-    bounds       = [(-(5+1),(5+1)) for i in range(D)]                          # search space
+    bounds  = [(-(D+1),(D+1)) for i in range(D)]
+    # Initilisation
+    target = np.random.uniform(-(D+1),(D+1),size = (popsize, D))
     
+    if Fn ==11 or Fn ==12:
+        D = 2
+        bounds  = [(-(5+1),(5+1)) for i in range(2)]                          # search space
+        target = np.random.uniform(-(5+1),(5+1),size = (popsize, 2))
     print('bounds = {}'.format(bounds))
     
-    # Initilisation
-    #target = np.random.uniform(-(D+1),(D+1),size = (popsize, D))
-    target = np.random.uniform(-(5+1),(5+1),size = (popsize, D))
+    
+    
     if len(target[0]) == 2:
         plt.title('Initial Uniformly Distributed target vector')
-        figure_plot(target , popsize )
+        figure_plot(target , popsize , D)
    
-    fitness = np.asarray([fobj(ind) for ind in target])                        # func value evaluation
+    fitness = np.asarray([fobj(ind , Fn) for ind in target])                        # func value evaluation
 
     for i in range(its):
         for j in range(popsize):
@@ -54,7 +58,7 @@ def de(fobj, mut, crossp, popsize, its, Fn):
                 cross_points[np.random.randint(0, D)] = True                   # Forcing atleast one index to become true.
             trial = np.where(cross_points, mutant, target[j])                  # trial vector generator
                                           
-            f = fobj(trial)                                                    # trial func evaluation
+            f = fobj(trial , Fn)                                                    # trial func evaluation
 
             # Selection                                                        # Constrain_implementation
             fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)    # domination check between trial vector and closest vector
