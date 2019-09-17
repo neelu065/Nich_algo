@@ -9,7 +9,11 @@ def const_violation(x , Fn):
         ap = 0
         for d in np.arange(D):
             Cp_old = np.mod(D - (p+1) + (d+1) + 1 , D)
-            Cp = np.where(Cp_old != 0 , Cp_old , D)
+            if Cp_old != 0:
+                Cp = Cp_old
+            else:
+                Cp = D
+            
             ap = ap + (Cp * x[d]) ** 2
         
         gp = D**2 - ap
@@ -17,7 +21,6 @@ def const_violation(x , Fn):
     const_viol = sum(phi_indv)                                               # constraint violation
 
     return const_viol
-
 
 # sine function constraint
 #def const_violation(a , Fn):
@@ -58,5 +61,5 @@ def const_violation(x , Fn):
 #         phi_indv = [max(0,gp[i]) for i in range(8)]
 #         const_viol = sum(phi_indv)
 #     return const_viol
-#
+##
 
