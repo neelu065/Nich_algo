@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 from constrain_const import constrain_const
 # Inputs
 
-Fn           = 7                                                               # Function to be evaluated
+Fn           = 4                                                                # Function to be evaluated
 popsize      = 20
 mut          = 0.9
 crossp       = 0.9
-iter_max     = 40000
-func_eval    = fobj                                                           # func to be evaluated
+iter_max     = 400
+func_eval    = fobj                                                             # func to be evaluated
 
-value        = constrain_const(Fn)                                         # func which decide the Dimension and parameter(p)
+value        = constrain_const(Fn)                                              # func which decide the Dimension and parameter(p)
 D            = value[0]
 # Execution
 start = time.time()
@@ -23,5 +23,6 @@ end = time.time()
 print('Time taken to Execute this code = {} seconds'.format(end - start))
 
 if len(a[0]) == 2:
-    plt.title('Target vector after {} iteration'.format(iter_max))             # plot for reference 
-    figure_plot(a , popsize , D)                                                  # comment if unnecessary
+    plt.title('Target vector after {} iteration'.format(iter_max))              # plot for reference 
+    figure_plot(a , popsize , D)                                                # comment if unnecessary
+
