@@ -1,17 +1,17 @@
 import time
 from de import de
-from func import func1
+from func import fobj
 from figure_plot import figure_plot
 import matplotlib.pyplot as plt
 
 # Inputs
 
 Fn           = 2                                                               # Function to be evaluated
-popsize      = 20
-mut          = 0.65
-crossp       = 0.65
-iter_max     = 1
-func_eval    = func1                                                           # func to be evaluated
+popsize      = 10
+mut          = 0.9
+crossp       = 0.9
+iter_max     = 50
+func_eval    = fobj                                                           # func to be evaluated
 
 # Execution
 start = time.time()
