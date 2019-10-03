@@ -12,7 +12,7 @@ from constrain_const import constrain_const
 from func import fobj
 from constrain import const_violation
 Fn = 3
-popsize      = 5
+popsize      = 20
 value        = constrain_const(Fn)                                         # func which decide the Dimension and parameter(p)
 D            = value[0]
 target = np.random.uniform(-(D+1),(D+1),size = (popsize , D))
@@ -65,4 +65,12 @@ target_sort = np.asarray(target_sort)
 print()
 print('-----sorted target vector-----')
 print()
-print(target_sort)
+print(target_sort )
+
+
+
+# species selection algorithm
+
+
+target_sort_cp = target_sort.copy()
+
