@@ -3,5 +3,5 @@ These code consist of different nich-algo which can be used to find multiple opt
 Since these code are of Evolutionary in nature, there is not need for function to be continuous, even a discontinues function can also be used to find the optimals. 
 
 ## Different Niching Algorithm.
-With the above folder consisting of different algorithm,the fINRAND1 and FNRAND1 are working perfectly for both hypersphere and himbalblau function with given constraint.
+With the above folder consisting of different algorithm,the fINRAND1 and FNRAND1 are working perfectly for both hypersphere and himbalblau function with given constraint.\\
 FSDE niching algorithm is building up with small error in finding distance between two coordinates, soon it will be rectified.
