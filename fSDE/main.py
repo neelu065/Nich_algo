@@ -11,7 +11,7 @@ popsize      = 10
 mut          = 0.9
 crossp       = 0.9
 iter_max     = 50
-func_eval    = fobj                                                           # func to be evaluated
+func_eval    = fobj                                                            # func to be evaluated
 
 # Execution
 start = time.time()
