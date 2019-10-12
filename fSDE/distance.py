@@ -9,41 +9,47 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-def dist(center,other):
-    return sum((center-other)**2)
+def dist(centroid,neighbour):
+    return sum((centroid-neighbour)**2)
     
 
 mn = target_sort.copy()
 
 ab = ['true' for i in range(len(target_sort))]
-rad = 4                                                                 # radius of influence
+rad = 3                                                                # radius of influence
 ab[0] = 'false'                                                                # seed set to false
 seed = [0]                                                                      # store the index of centroid vector
-s=[]                                                                           # store the value which are around the centroid
+s=[]                                                                           # store the neighbour with centroid index
 for i in range(popsize):                                                       # loops over the popsize
-    other = mn[i]
+    neighbour = mn[i]
     
     for j in seed:                                                             # loops over the number of centroid
-        center = mn[j]
+        centroid = mn[j]
                                                        
-        if ab[i]=='true' and dist(center,other) <= rad**2 :                    # function to evaluate the euclidian distance
-            s.append([mn[i],j])
-           
-#        if qw ==0:
-#            plt.plot(mn[i][0],mn[i][1],'^')
-#            
-#        else:
-#            plt.plot(mn[i][0],mn[i][1],'*')
-        
-    if ab[i]=='true' and dist(center,other)>rad**2:
+        if ab[i] == 'true' and dist(centroid,neighbour) < rad**2 :                    # function to evaluate the euclidian distance
+            s.append([neighbour,j])
+            
+    if ab[i] == 'true' and all([dist(mn[item],neighbour) > rad**2 for item in seed]) :
         seed.append(i)
         ab[i]='false'
         
 
 #next loop
-print(len([i for i in range(len(s)) if s[i][1]==0]))
-m = 20
 for k in seed:
-    value = len([i for i in range(len(s)) if s[i][1]==k])
-    if value < m:
+    count = 0
+    for i in range(len(s)):
+        if s[i][1]==k:
+            count +=1
+    print("neighbour count around centroid index {} = ".format(k), count )
+m = 20
+#print(seed)
+#print(s )
+for k in seed:
+    neigh_point = len([i for i in range(len(s)) if s[i][1]==k])
+    if neigh_point < m:
+        random_points = np.random.uniform(-radius , radius , size = (m - neigh_point , D))
         
+        for i in range(len(random_points)):
+            x=random_points[0][i]
+            y=random_points[1][i]
+            plt.plot(x,y,'*')
