@@ -8,22 +8,23 @@ Created on Wed Sep 25 12:08:20 2019
 import numpy as np
 from constrain import const_violation
 
-def sorttarget(Fn, popsize, D, target, fitness):
-    b = []
-    c = []
-    e = []
-    f = []  # b = is list of fitness value
 
-    for i in range(popsize):  # c = list of violated values
-        violation = const_violation(target[i], Fn)  # d = cpoy of b for reference
-        if violation == 0:  # e = index of feasible fitness value
-            b.append(fitness[i])  # f = index of violated values
+def sorttarget(Fn, popsize, target, fitness):
+    b = [] # b = is list of fitness value
+    c = [] # c = list of violated values
+    e = [] # e = index of feasible fitness value
+    f = [] # f = index of violated values
+
+    for i in range(popsize):  
+        violation = const_violation(target[i], Fn)  
+        if violation == 0:  
+            b.append(fitness[i])  
             e.append(i)
         else:
             c.append(violation)
             f.append(i)
 
-    d = b.copy()
+    d = b.copy() # d = copy of b for reference
     b.sort()
     g = c.copy()
     c.sort()
