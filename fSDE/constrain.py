@@ -2,7 +2,7 @@ from constrain_const import constrain_const
 import numpy as np
 
 def const_violation(x , Fn):
-    if (Fn >= 1 or Fn <= 9):
+    if (Fn >= 1 and Fn <= 9):
         D, P = constrain_const(Fn)                                                  # P = number of constraint
         phi_indv = []                                                               # D = Dimension of the function
         for p in np.arange(P):
@@ -13,20 +13,20 @@ def const_violation(x , Fn):
                     Cp = Cp_old
                 else:
                     Cp = D
-                
+#                print(x)
                 ap = ap + (Cp * x[d]) ** 2
-            
+                
             gp = D**2 - ap
             phi_indv.append(max(0,gp))
         const_viol = sum(phi_indv)                                               # constraint violation
 
-    return const_viol
+        return const_viol
 
 # sine function constraint
     if (Fn == 10):
         gp = - np.cos(10*np.pi*x)
         const_viol = max([ 0 , gp ])
-    return const_viol
+        return const_viol
 
 
 
@@ -47,6 +47,9 @@ def const_violation(x , Fn):
         
          phi_indv   = [max(0,gp[i]) for i in range(4)]
          const_viol = sum(phi_indv)
+         
+         return const_viol
+     
          if (Fn == 12):
              g5 =  (x[0] - z[0]) + (x[1] - e[0])
             
@@ -59,4 +62,4 @@ def const_violation(x , Fn):
              gp = [ g1 , g2 , g3 , g4 , g5 , g6 , g7 , g8 ]
              phi_indv = [max(0,gp[i]) for i in range(8)]
              const_viol = sum(phi_indv)
-    return const_viol
+             return const_viol
