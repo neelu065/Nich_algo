@@ -8,20 +8,18 @@ Created on Thu Oct  3 22:20:08 2019
 
 
 import numpy as np
-from figure_plot import figure_plot
-import matplotlib.pyplot as plt
 
 
 def neighbour(target_sort, popsize, radius, D):
     def dist(c, n):  # function to define euclidian distance
-        return sum((c - n) ** 2)
+        return np.sum((c - n) ** 2)
 
     ab = []
     for i in range(len(target_sort)):
         ab.append('true')
 
-    ab[1] = 'false'  # seed set to false
-    seed = [1]  # store the index of centroid vector
+    ab[0] = 'false'  # seed set to false
+    seed = [0]  # store the index of centroid vector
     s = []  # store the neighbour with centroid index
     for i in range(popsize):  # loops over the popsize
         neighbour_vector = target_sort[i]
@@ -43,10 +41,10 @@ def neighbour(target_sort, popsize, radius, D):
         for i in range(len(s)):
             if s[i][1] == k:
                 count += 1
-        print("neighbour count around centroid index {} = ".format(k), count)
-    print("-----")
+#        print("neighbour count around centroid index {} = ".format(k), count)
+#    print("-----")
     # comment when not needed
-
+    
     m = 20  # user defined value
 
     for k in seed:
@@ -75,6 +73,6 @@ def uniquevector(s, seed, target):
     for item in range(len(s)):
         new.append(np.asarray(s[item][0]))
     for item in seed:
-        new.append(np.array(target[item]))
+        new.append(np.asarray(target[item]))
     target = np.unique(new, axis=0)
     return target

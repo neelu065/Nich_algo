@@ -2,9 +2,10 @@ import numpy as np
 
 
 def fobj(x, Fn):
+
     if Fn >= 1 or Fn <= 9:
         # Sphere function, use any bounds, f(0,...,0)=0
-        return sum([x[i] ** 2 for i in range(len(x))])
+        return np.sum(x ** 2)
 
     if Fn == 10:
         # F10

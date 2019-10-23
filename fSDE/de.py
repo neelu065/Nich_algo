@@ -32,11 +32,11 @@ def de(fobj, mut, crossp, popsize, its, Fn):
     fitness = np.asarray([fobj(ind, Fn) for ind in target])  # objective func evaluation
 
     for i in range(its):
-        target_sort = sorttarget(Fn, popsize, target, fitness)  # call sitaance function here
+        target_sort = sorttarget(Fn, popsize, target, fitness) # call sort function here
 
-        radius = 3  # radius of influence
+        radius = 1  # radius of influence
 
-        ab, s, seed = neighbour(target_sort, popsize, radius, D)
+        ab, s, seed = neighbour(target_sort, popsize, radius, D)   # call distance function here
 
         # renamed target_sort as target so that further understanding would be easier.
         target = target_sort
@@ -48,10 +48,26 @@ def de(fobj, mut, crossp, popsize, its, Fn):
             # Mutation
             if ab[j] == 'false':  # corr to seed
                 idxs = [idx for idx in range(len(s)) if s[idx][1] == j]
+                
             else:  # corr to neigh_bour points
-                idxs = [idx for idx in range(len(s)) if np.all(s[idx][0] == target[j])]
-
-            x = np.random.choice(idxs, 3, replace=True)
+                var = []
+                
+                for item in range(len(s)):
+                    if np.all(s[item][0] == target[j]):
+                        var.append(item)
+                
+                seed_var = []
+                for j in var:
+                    seed_var.append(s[j][1])
+                idx = []
+                for j in seed_var:
+                    for item in range(len(s)):
+                        if s[item][1]==j:
+                            idx.append(item)
+                
+                idxs = np.unique(idx,axis = 0)
+                
+            x = np.random.choice(idxs, 3, replace=False)
             
             a, b, c = [s[item][0] for item in x]
 
