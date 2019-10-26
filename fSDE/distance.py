@@ -17,10 +17,12 @@ def neighbour(target_sort, popsize, radius, D):
     ab = []
     for i in range(len(target_sort)):
         ab.append('true')
-
-    ab[0] = 'false'  # seed set to false
-    seed = [0]  # store the index of centroid vector
+    
+    ax = 0  # initail seed
+    ab[ax] = 'false'  # seed set to false
+    seed = [ax]  # store the index of centroid vector
     s = []  # store the neighbour with centroid index
+    
     for i in range(popsize):  # loops over the popsize
         neighbour_vector = target_sort[i]
 
@@ -36,11 +38,11 @@ def neighbour(target_sort, popsize, radius, D):
             ab[i] = 'false'  # so that this point wont become the neighbour of any centroid vector
 
     # comment when not needed
-    for k in seed:
-        count = 0
-        for i in range(len(s)):
-            if s[i][1] == k:
-                count += 1
+#    for k in seed:
+#        count = 0
+#        for i in range(len(s)):
+#            if s[i][1] == k:
+#                count += 1
 #        print("neighbour count around centroid index {} = ".format(k), count)
 #    print("-----")
     # comment when not needed
@@ -76,3 +78,22 @@ def uniquevector(s, seed, target):
         new.append(np.asarray(target[item]))
     target = np.unique(new, axis=0)
     return target
+
+def cluster_point(s,target):
+    
+    var = []
+    for item in range(len(s)):
+        if np.all(s[item][0] == target):
+            var.append(item)
+    
+    seed_var = []
+    for j in var:
+        seed_var.append(s[j][1])
+    
+    idx = []
+    for j in seed_var:
+        for item in range(len(s)):
+            if s[item][1]==j:
+                idx.append(item)
+                
+    return np.unique(idx,axis = 0)

@@ -4,30 +4,40 @@ from constrain_const import constrain_const
 from figure_plot import figure_plot
 import matplotlib.pyplot as plt
 from sort_file import sorttarget
-from distance import neighbour, uniquevector
+from distance import neighbour, uniquevector,cluster_point
 
 
 def de(fobj, mut, crossp, popsize, its, Fn):
-    value = constrain_const(Fn)  # func which decide the Dimension and parameter(p)
-    D = value[0]
-    bounds = []
-    for i in range(D):
-        bounds.append((-(D + 1), (D + 1)))
-
     # Initilisation
-    target = np.random.uniform(-(D + 1), (D + 1), size=(popsize, D))
-
+    if 1 <= Fn <= 9:
+        value = constrain_const(Fn)  # func which decide the Dimension and parameter(p)
+        D = value[0]
+        bounds = []
+        for i in range(D):
+            bounds.append((-(D + 1), (D + 1)))
+        target = np.random.uniform(-(D + 1), (D + 1), size=(popsize, D))
+    
     if Fn == 11 or Fn == 12:
         D = 2
         bounds = []
-        for i in range(2):
+        for i in range(D):
             bounds.append((-(5 + 1), (5 + 1)))
         target = np.random.uniform(-(5 + 1), (5 + 1), size=(popsize, 2))
+    
+    
+    if Fn == 19:
+        D = 2
+        ca = 512  # limits
+        bounds = []
+        for i in range(D):
+            bounds.append((-ca, ca))
+        target = np.random.uniform(-ca, ca, size = (popsize, 2))
+    
     print('bounds = {}'.format(bounds))
-
+    
     if len(target[0]) == 2:
         plt.title('Initial Uniformly Distributed target vector')
-        figure_plot(target, popsize)
+        figure_plot(target, popsize,Fn,ca)
 
     fitness = np.asarray([fobj(ind, Fn) for ind in target])  # objective func evaluation
 
@@ -50,23 +60,8 @@ def de(fobj, mut, crossp, popsize, its, Fn):
                 idxs = [idx for idx in range(len(s)) if s[idx][1] == j]
                 
             else:  # corr to neigh_bour points
-                var = []
-                
-                for item in range(len(s)):
-                    if np.all(s[item][0] == target[j]):
-                        var.append(item)
-                
-                seed_var = []
-                for j in var:
-                    seed_var.append(s[j][1])
-                idx = []
-                for j in seed_var:
-                    for item in range(len(s)):
-                        if s[item][1]==j:
-                            idx.append(item)
-                
-                idxs = np.unique(idx,axis = 0)
-                
+                idxs = cluster_point(s,target[j]) # call cluster_function here
+            
             x = np.random.choice(idxs, 3, replace=False)
             
             a, b, c = [s[item][0] for item in x]
@@ -83,13 +78,25 @@ def de(fobj, mut, crossp, popsize, its, Fn):
 
             # if trial fitness is same as its species seed, then randomly generate new trial vector
             if ab[j] == 'false' and f == fitness[j]:  # if j is seed then compare only eith that species seed
-                trial = np.random.uniform(-(D + 1), (D + 1), size=(1, D))
+                if  11<= Fn <= 12:
+                    trial = np.random.uniform(-(5 + 1), (5 + 1), size=(1, D))
+                if 1 <= Fn <=9:
+                    trial = np.random.uniform(-(D + 1), (D + 1), size=(1, D))
+                if Fn ==19:
+                    trial = np.random.uniform(-(ca), (ca), size=(1, D))
+                
                 f = fobj(trial, Fn)
 
             if ab[j] == 'true' and np.any(f == fitness[seed]):  # if j is neigh_bour point then compare with all seed
-                trial = np.random.uniform(-(D + 1), (D + 1), size=(1, D))
+                if  11<= Fn <= 12:
+                    trial = np.random.uniform(-(5 + 1), (5 + 1), size=(1, D))
+                if 1 <= Fn <=9:
+                    trial = np.random.uniform(-(D + 1), (D + 1), size=(1, D))
+                if Fn ==19:
+                    trial = np.random.uniform(-(10), (10), size=(1, D))
                 f = fobj(trial, Fn)
 
+            
             # Selection                                                        # Constrain_implementation
 
             fitness[j], target[j] = selection(f, fitness[j], target[j], trial,
@@ -102,4 +109,5 @@ def de(fobj, mut, crossp, popsize, its, Fn):
 
         target_sort = sorttarget(Fn, len(target), target, fitness)
         target = target_sort[0:popsize]
+     
     return target, np.asarray([fobj(ind, Fn) for ind in target])

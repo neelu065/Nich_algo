@@ -17,5 +17,5 @@ def selection(f, fitness, target, trial, Fn):
 
     if (q1 and q2) or (r1 and r2) or (s1 and s2):
         fitness = f
-        target = trial  # phi_b corr to donor vector
+        target = trial
     return fitness, target

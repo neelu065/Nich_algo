@@ -75,3 +75,7 @@ def const_violation(x, Fn):
         phi_indv = [max(0, gp[i]) for i in range(8)]
         const_viol = sum(phi_indv)
         return const_viol
+    
+    if Fn == 19:
+        # eggholder function
+        return 0
