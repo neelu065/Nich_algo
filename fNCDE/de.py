@@ -4,25 +4,38 @@ from constrain_const import constrain_const
 from figure_plot import figure_plot
 import matplotlib.pyplot as plt
 
-def de(fobj, mut, crossp, popsize, its, Fn):
-
-    value        = constrain_const(Fn)                                         # func which decide the Dimension and parameter(p)
-    D            = value[0]
-    bounds       = [(-(D+1),(D+1)) for i in range(D)]                          # search space
-
-
+def de(fobj, mut, crossp, popsize, its, Fn, ca):
     # Initilisation
-    target = np.random.uniform(-(D+1),(D+1),size = (popsize , D))
-
-    if Fn ==11 or Fn ==12:
+    np.random.seed(20)
+    if 1 <= Fn <= 9:
+        value = constrain_const(Fn)  # func which decide the Dimension and parameter(p)
+        D = value[0]
+        bounds = []
+        for i in range(D):
+            bounds.append((-(D + 1), (D + 1)))
+        target = np.random.uniform(-(D + 1), (D + 1), size=(popsize, D))
+    
+    if Fn == 11 or Fn == 12:
         D = 2
-        bounds  = [(-(5+1),(5+1)) for i in range(2)]                          # search space
-        target = np.random.uniform(-(5+1),(5+1),size = (popsize, 2))
+        bounds = []
+        for i in range(D):
+            bounds.append((-(5 + 1), (5 + 1)))
+        target = np.random.uniform(-(5 + 1), (5 + 1), size=(popsize, 2))
+    
+    
+    if Fn == 19:
+        D = 2
+        bounds = []
+        for i in range(D):
+            bounds.append((-ca, ca))
+        target = np.random.uniform(-ca, ca, size = (popsize, 2))
+    
     print('bounds = {}'.format(bounds))
-
+    
     if len(target[0]) == 2:
         plt.title('Initial Uniformly Distributed target vector')
-        figure_plot(target , popsize )
+        figure_plot(target, popsize,Fn,ca)
+   
 
     fitness = np.asarray([fobj(ind , Fn) for ind in target])                        # func value evaluation
 
@@ -70,6 +83,5 @@ def de(fobj, mut, crossp, popsize, its, Fn):
 
             # Selection                                                        # Constrain_implementation
             fitness[j] , target[j] = selection(f , f_xn , x_n , trial , Fn)    # domination check between trial vector and closest vector
-#    print('min_indx :{}'.format(min_ind))
-#    print('all_sum :{}'.format(all_sum))
+
     return target , fitness

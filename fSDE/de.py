@@ -7,8 +7,9 @@ from sort_file import sorttarget
 from distance import neighbour, uniquevector,cluster_point
 
 
-def de(fobj, mut, crossp, popsize, its, Fn):
+def de(fobj, mut, crossp, popsize, its, Fn, ca):
     # Initilisation
+    np.random.seed(20)
     if 1 <= Fn <= 9:
         value = constrain_const(Fn)  # func which decide the Dimension and parameter(p)
         D = value[0]
@@ -27,7 +28,6 @@ def de(fobj, mut, crossp, popsize, its, Fn):
     
     if Fn == 19:
         D = 2
-        ca = 512  # limits
         bounds = []
         for i in range(D):
             bounds.append((-ca, ca))
@@ -44,7 +44,7 @@ def de(fobj, mut, crossp, popsize, its, Fn):
     for i in range(its):
         target_sort = sorttarget(Fn, popsize, target, fitness) # call sort function here
 
-        radius = 1  # radius of influence
+        radius = 2  # radius of influence
 
         ab, s, seed = neighbour(target_sort, popsize, radius, D)   # call distance function here
 

@@ -19,9 +19,9 @@ def constrain_const(n):
     F16 =[  2, 1 ]
     F17 =[  3, 1 ]
     F18 =[  5, 1 ]
-
+    F19 =[  2, 0 ]
     benchmark_func = [F1,F2,F3,F4,F5,F6,F7,F8,F9,
                      F10,F11,F12,F13,F14,F15,F16,
-                     F17,F18]
+                     F17,F18,F19]
 
     return benchmark_func[n-1]
