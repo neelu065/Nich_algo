@@ -4,4 +4,5 @@ Since these code are of Evolutionary in nature, there is not need for function t
 
 ## Different Niching Algorithm.
 With the above folder consisting of different algorithm,the fINRAND1 and FNRAND1 are working perfectly for both hypersphere and himbalblau function with given constraint.  
-fSDE is ready to use.
+fSDE is ready to use.  
+fNCDE is not doing good.
