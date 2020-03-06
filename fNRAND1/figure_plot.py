@@ -19,4 +19,4 @@ def figure_plot(target, popsize,Fn,c= None):
         plt.ylim(-c,c)
         plt.xlim(-c,c)
     plt.show(block=False)
-    return ()
+    

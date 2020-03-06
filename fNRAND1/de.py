@@ -1,13 +1,13 @@
 import numpy as np
 from selection import selection
 from constrain_const import constrain_const
-from figure_plot import figure_plot
+#from figure_plot import figure_plot
 import matplotlib.pyplot as plt
 
-def de(fobj, mut, crossp, popsize, its, Fn, ca):
+def de(fobj, mut, crossp, popsize, its, Fn, ca, Dimension=20):
 
     # Initilisation
-    np.random.seed(20)
+    #np.random.seed(20)
     if 1 <= Fn <= 9:
         value = constrain_const(Fn)  # func which decide the Dimension and parameter(p)
         D = value[0]
@@ -30,12 +30,20 @@ def de(fobj, mut, crossp, popsize, its, Fn, ca):
         for i in range(D):
             bounds.append((-ca, ca))
         target = np.random.uniform(-ca, ca, size = (popsize, 2))
+        
+    if Fn == 20:
+        D = Dimension
+        bounds = []
+        b = 32.768
+        for i in range(D):
+            bounds.append((-b, b))
+        target = np.random.uniform(-b, b, size = (popsize, D))
     
-    print('bounds = {}'.format(bounds))
+    #print('bounds = {}'.format(bounds))
     
-    if len(target[0]) == 2:
-        plt.title('Initial Uniformly Distributed target vector')
-        figure_plot(target, popsize,Fn,ca)
+#    if len(target[0]) == 2:
+#        plt.title('Initial Uniformly Distributed target vector')
+#        figure_plot(target, popsize,Fn,ca)
     fitness = np.asarray([fobj(ind, Fn) for ind in target])                        # func value evaluation
 
     for i in range(its):
@@ -64,5 +72,5 @@ def de(fobj, mut, crossp, popsize, its, Fn, ca):
 
             # Selection                                                        # Constrain_implementation
             fitness[j] , target[j] = selection(f , fitness[j] , target[j] , trial , Fn)    # domination check between trial vector and closest vector
-
+        
     return target , fitness

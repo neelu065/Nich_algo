@@ -7,7 +7,7 @@ def const_violation(x, Fn):
         D, P = constrain_const(Fn)  # P = number of constraint
         phi_indv = []  # D = Dimension of the function
         for p in np.arange(P):
-            ap: float = 0
+            ap = 0
             for d in np.arange(D):
                 Cp_old = np.mod(D - (p + 1) + (d + 1) + 1, D)
                 if Cp_old != 0:
@@ -76,6 +76,6 @@ def const_violation(x, Fn):
         const_viol = sum(phi_indv)
         return const_viol
     
-    if Fn == 19:
+    if Fn == 20:
         # eggholder function
         return 0
